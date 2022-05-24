@@ -18,17 +18,24 @@ void initializePCA9685(uint8_t addr) {
     pca9685_Initialized = true;
 }
 
-void moveServo(byte motorAddress, int angle) {
+void moveServo(Servo servo, int angle) {
     if (!pca9685_Initialized) {
         Serial.println("[ERROR] PCA9685 driver was not initialized");
         return;
     }
 
+    if (angle < 0 || angle > 180) {
+        Serial.print("[ERROR] ");
+        Serial.print(angle);
+        Serial.println("degrees is invalid for the servo angle");
+        return;
+    }
+
     int pwm = map(angle, 0, 180, SERVOMIN, SERVOMAX);
-    pca9685.setPWM(motorAddress, 0, pwm);
+    pca9685.setPWM(servo, 0, pwm);
     
     Serial.print("Servo ");
-    Serial.print(motorAddress);
+    Serial.print(servo);
     Serial.print(" moved to ");
     Serial.print(angle);
     Serial.println(" degrees");

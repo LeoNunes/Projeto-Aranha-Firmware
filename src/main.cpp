@@ -2,23 +2,21 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#include <serialcommand.h>
-#include <servo.h>
+#include <serialcommands/commandmanager.h>
+#include <serialcommands/baseserialcommandinterceptor.h>
+#include <modes/modes.h>
 
-
-void setup()
-{
+void setup() {
     Serial.begin(115200);
 
     initializePCA9685();
+    delay(50);
+    
+    MODE_MANAGER.setMode(MAIN_MODE);
+    COMMAND_MANAGER.addCommandInterceptor(BASE_SERIAL_COMMAND_INTERCEPTOR);
 }
 
-void loop()
-{
-    String command = readSerialCommand();
-    if (command != "") {
-        int angle = command.toInt();
-
-        moveServo(SER0, angle);
-    }
+void loop() {
+    MODE_MANAGER.executeModeLoop();
+    COMMAND_MANAGER.run();
 }
