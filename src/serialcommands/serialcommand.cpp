@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "serialcommand.h"
+#include <serialcommands/serialcommand.h>
 
 const int COMMAND_MAX_SIZE = 20;
 

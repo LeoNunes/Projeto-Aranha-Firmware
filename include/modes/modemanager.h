@@ -9,6 +9,5 @@ struct ModeManager {
         void setMode(Mode& newMode);
 
     private:
-        bool initialized;
         Mode* currentMode;
 };

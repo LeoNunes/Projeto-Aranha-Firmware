@@ -3,7 +3,6 @@
 #include <modes/modemanager.h>
 
 ModeManager::ModeManager() {
-    initialized = false;
     currentMode = nullptr;
 }
 
@@ -18,10 +17,9 @@ void ModeManager::executeModeLoop() {
 }
 
 void ModeManager::setMode(Mode& newMode) {
-    if (initialized) {
+    if (currentMode != nullptr) {
         currentMode->terminateMode();
     }
     newMode.initiateMode();
     currentMode = &newMode;
-    initialized = true;
 }

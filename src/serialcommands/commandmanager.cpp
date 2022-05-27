@@ -1,6 +1,6 @@
 #include <serialcommands/commandmanager.h>
 #include <serialcommands/commandinterceptor.h>
-#include <serialcommand.h>
+#include <serialcommands/serialcommand.h>
 
 byte CommandManager::addCommandInterceptor(CommandInterceptor& interceptor) {
     if (nextInterceptorId >= MAX_COMMAND_INTERCEPTORS) {
