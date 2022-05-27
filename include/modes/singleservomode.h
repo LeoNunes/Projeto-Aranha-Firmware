@@ -1,7 +1,9 @@
 #pragma once
 
+#include <Arduino.h>
+
 #include <modes/mode.h>
-#include <servo.h>
+#include <servo/servo.h>
 #include <serialcommands/commandinterceptor.h>
 
 struct SingleServoMode : Mode, CommandInterceptor {

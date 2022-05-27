@@ -18,6 +18,19 @@ enum Servo : byte {
     SER11 = 11, // Servo Motor 11 on connector 11
 };
 
+const Servo S_FL_1 = SER0; // Front Left 1
+const Servo S_FL_2 = SER1; // Front Left 2
+const Servo S_FL_3 = SER2; // Front Left 3
+const Servo S_FR_1 = SER3; // Front Right 1
+const Servo S_FR_2 = SER4; // Front Right 2
+const Servo S_FR_3 = SER5; // Front Right 3
+const Servo S_BL_1 = SER6; // Back Left 1
+const Servo S_BL_2 = SER7; // Back Left 2
+const Servo S_BL_3 = SER8; // Back Left 3
+const Servo S_BR_1 = SER9; // Back Right 1
+const Servo S_BR_2 = SER10; // Back Right 2
+const Servo S_BR_3 = SER11; // Back Right 3
+
 const byte SERVO_COUNT = 12;
 const Servo ALL_SERVOS[] { SER0, SER1, SER2, SER3, SER4, SER5, SER6, SER7, SER8, SER9, SER10, SER11 };
 

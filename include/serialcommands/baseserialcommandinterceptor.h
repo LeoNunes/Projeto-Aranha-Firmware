@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Arduino.h>
+
 #include <serialcommands/commandinterceptor.h>
 
 struct BaseSerialCommandInterceptor : CommandInterceptor {

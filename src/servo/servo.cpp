@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#include <servo.h>
+#include <servo/servo.h>
 
 #define SERVOMIN 80  // Minimum value
 #define SERVOMAX 600 // Maximum value
@@ -18,7 +18,7 @@ void initializePCA9685(uint8_t addr) {
     pca9685_Initialized = true;
 }
 
-void moveServo(Servo servo, int angle) {
+void  moveServo(Servo servo, int angle) {
     if (!pca9685_Initialized) {
         Serial.println("[ERROR] PCA9685 driver was not initialized");
         return;
@@ -33,10 +33,4 @@ void moveServo(Servo servo, int angle) {
 
     int pwm = map(angle, 0, 180, SERVOMIN, SERVOMAX);
     pca9685.setPWM(servo, 0, pwm);
-    
-    Serial.print("Servo ");
-    Serial.print(servo);
-    Serial.print(" moved to ");
-    Serial.print(angle);
-    Serial.println(" degrees");
 }

@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include <serialcommands/commandmanager.h>
 #include <serialcommands/commandinterceptor.h>
 #include <serialcommands/serialcommand.h>
