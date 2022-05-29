@@ -1,10 +1,10 @@
 #include <Arduino.h>
 
-#include <serialcommands/commandmanager.h>
-#include <serialcommands/commandinterceptor.h>
+#include <serialcommands/serialcommandmanager.h>
+#include <serialcommands/serialcommandinterceptor.h>
 #include <serialcommands/serialcommand.h>
 
-byte CommandManager::addCommandInterceptor(CommandInterceptor& interceptor) {
+byte SerialCommandManager::addCommandInterceptor(SerialCommandInterceptor& interceptor) {
     if (nextInterceptorId >= MAX_COMMAND_INTERCEPTORS) {
         while (true) {
             Serial.println("Command Manager has no space for new interceptors");
@@ -19,7 +19,7 @@ byte CommandManager::addCommandInterceptor(CommandInterceptor& interceptor) {
     return interceptorId;
 }
 
-void CommandManager::removeCommandInterceptor(byte interceptorId) {
+void SerialCommandManager::removeCommandInterceptor(byte interceptorId) {
     Serial.println("Chamado remove");
     for (int i = interceptorId; i < nextInterceptorId; i++) {
         interceptors[i] = interceptors[i+1];
@@ -27,7 +27,7 @@ void CommandManager::removeCommandInterceptor(byte interceptorId) {
     nextInterceptorId--;
 }
 
-void CommandManager::run() {
+void SerialCommandManager::run() {
     String command = readSerialCommand();
     if (command != "") {
         command.toUpperCase();

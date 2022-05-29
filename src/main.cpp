@@ -2,7 +2,7 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-#include <serialcommands/commandmanager.h>
+#include <serialcommands/serialcommandmanager.h>
 #include <serialcommands/baseserialcommandinterceptor.h>
 #include <modes/modes.h>
 

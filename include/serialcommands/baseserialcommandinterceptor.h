@@ -2,9 +2,9 @@
 
 #include <Arduino.h>
 
-#include <serialcommands/commandinterceptor.h>
+#include <serialcommands/serialcommandinterceptor.h>
 
-struct BaseSerialCommandInterceptor : CommandInterceptor {
+struct BaseSerialCommandInterceptor : SerialCommandInterceptor {
     bool intercept(String command) override;
 };
 
