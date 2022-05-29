@@ -5,9 +5,12 @@
 #include <serialcommands/serialcommandmanager.h>
 #include <serialcommands/baseserialcommandinterceptor.h>
 #include <modes/modes.h>
+#include <servo/servocontrollers.h>
 
 void setup() {
     Serial.begin(115200);
+
+    initializeServoControllers();
 
     initializePCA9685();
     delay(50);

@@ -29,7 +29,6 @@ void ServoController::addMovementToQueue(ServoMovement* movement) {
             delay(1000);
         }
     }
-    Serial.println("Movement added to queue");
     movementQueue->push(&movement);
 }
 
@@ -37,7 +36,6 @@ void ServoController::loop() {
     ServoMovement* movement;
     if (movementQueue->peek(&movement)) {
         if (!movement->getStarted()) {
-            Serial.println("Controller starting a movement");
             movement->start();
         }
 
@@ -46,7 +44,6 @@ void ServoController::loop() {
         if (movement->getCompleted()) {
             movementQueue->pop(&movement);
             delete movement;
-            Serial.println("Movement removed from queue");
         }
     }
 }

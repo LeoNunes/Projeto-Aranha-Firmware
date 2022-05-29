@@ -2,12 +2,9 @@
 
 #include <modes/mainmode.h>
 #include <servo/servo.h>
-#include <servo/servocontroller.h>
+#include <servo/servocontrollers.h>
 #include <servo/instantmovement.h>
 #include <servo/linearmovement.h>
-
-
-ServoController MM_ServoController = ServoController(S_FR_1);
 
 void MainMode::initiateMode() {
     Serial.println("--- Initiating Main Mode ---");
@@ -19,10 +16,10 @@ void MainMode::initiateMode() {
     InstantMovement* m3 = new InstantMovement(115, 1000);
     LinearMovement* m4 = new LinearMovement(115, 40, 1000);
     
-    MM_ServoController.addMovementToQueue(m1);
-    MM_ServoController.addMovementToQueue(m2);
-    MM_ServoController.addMovementToQueue(m3);
-    MM_ServoController.addMovementToQueue(m4);
+    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m1);
+    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m2);
+    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m3);
+    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m4);
 
     // delay(10000);
     // moveServo(S_FL_1, 65);
@@ -49,6 +46,6 @@ void MainMode::terminateMode() {
 }
 
 void MainMode::loop() {
-    MM_ServoController.loop();
+    servoControllersLoop();
     // TODO: implement Main Mode
 }
