@@ -11,6 +11,10 @@ bool BaseSerialCommandInterceptor::intercept(String command) {
     if (command == "SSM") {
         MODE_MANAGER.setMode(SINGLE_SERVO_MODE);
         return true;
-    } 
+    }
+    if (command == "CAL") {
+        MODE_MANAGER.setMode(CALIBRATION_MODE);
+        return true;
+    }
     return false;
 }

@@ -6,37 +6,41 @@
 #include <servo/instantmovement.h>
 #include <servo/linearmovement.h>
 
+
+
+void wakeUp() {
+    for (int i = 0; i < 4; i++) {
+        InstantMovement* m0_0 = new InstantMovement(0, 5000);
+        SERVO_CONTROLLERS[3*i+0]->addMovementToQueue(m0_0);
+        LinearMovement* m0_1 = new LinearMovement(0, 45, 1000);
+        SERVO_CONTROLLERS[3*i+0]->addMovementToQueue(m0_1);
+
+        InstantMovement* m1_0 = new InstantMovement(0, 6000);
+        SERVO_CONTROLLERS[3*i+1]->addMovementToQueue(m1_0);
+        LinearMovement* m1_1 = new LinearMovement(0, 70, 2000);
+        SERVO_CONTROLLERS[3*i+1]->addMovementToQueue(m1_1);
+
+        InstantMovement* m2_0 = new InstantMovement(0, 7000);
+        SERVO_CONTROLLERS[3*i+2]->addMovementToQueue(m2_0);
+        LinearMovement* m2_1 = new LinearMovement(0, 70, 1000);
+        SERVO_CONTROLLERS[3*i+2]->addMovementToQueue(m2_1);
+    }
+}
+
+void sleep() {
+    for (int i = 0; i < SERVO_COUNT; i++) {
+        InstantMovement* m = new InstantMovement(0, 1000);
+        SERVO_CONTROLLERS[i]->addMovementToQueue(m);
+    }
+}
+
 void MainMode::initiateMode() {
     Serial.println("--- Initiating Main Mode ---");
 
     #ifdef LEO_ENV
 
-    InstantMovement* m1 = new InstantMovement(40, 5000);
-    LinearMovement* m2 = new LinearMovement(40, 115, 2000);
-    InstantMovement* m3 = new InstantMovement(115, 1000);
-    LinearMovement* m4 = new LinearMovement(115, 40, 1000);
-    
-    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m1);
-    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m2);
-    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m3);
-    SERVO_CONTROLLERS[S_FR_1]->addMovementToQueue(m4);
-
-    // delay(10000);
-    // moveServo(S_FL_1, 65);
-    // moveServo(S_FR_1, 85);
-    // moveServo(S_BL_1, 75);
-    // moveServo(S_BR_1, 50);
-    // delay(1000);
-    // moveServo(S_FL_2, 32);
-    // moveServo(S_FR_2, 130);
-    // moveServo(S_BL_2, 110);
-    // moveServo(S_BR_2, 20);
-    // delay(1000);
-    // moveServo(S_FL_3, 80);
-    // moveServo(S_FR_3, 100);
-    // moveServo(S_BL_3, 100);
-    // moveServo(S_BR_3, 70);
-    // delay(1000);
+    // wakeUp();
+    sleep();
 
     #endif
 }

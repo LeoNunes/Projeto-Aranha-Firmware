@@ -54,6 +54,7 @@ void ServoController::updateCalibration(bool reversed, byte zeroAngle) {
     this->zeroAngle = zeroAngle;
     EEPROM.writeBool(getReversedEEPROMAddress(), reversed);
     EEPROM.writeByte(getZeroAngleEEPROMAddress(), zeroAngle);
+    EEPROM.commit();
 }
 
 std::tuple<bool, byte> ServoController::getCalibration() {
@@ -61,9 +62,7 @@ std::tuple<bool, byte> ServoController::getCalibration() {
 }
 
 void ServoController::resetCalibration() {
-    byte EEPROM_address = servo * 2;
-    EEPROM.writeBool(getReversedEEPROMAddress(), false);
-    EEPROM.writeByte(getZeroAngleEEPROMAddress(), 0);
+    updateCalibration(false, 0);
 }
 
 void ServoController::updateCalibrationFromStoredData() {
