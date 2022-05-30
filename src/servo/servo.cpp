@@ -32,5 +32,5 @@ void  moveServo(Servo servo, int angle) {
     }
 
     int pwm = map(angle, 0, 180, SERVOMIN, SERVOMAX);
-    pca9685.setPWM(servo, 0, pwm);
+    pca9685.setPWM(SERVOS_PINS[servo], 0, pwm);
 }
