@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <Adafruit_PWMServoDriver.h>
 
+// TODO: Refactor to allow skipping PINS (e.g. using pin 15 for servo 3);
+
 enum Servo : byte {
     SER0 = 0, // Servo Motor 0 on connector 0
     SER1 = 1, // Servo Motor 1 on connector 1

@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <cppQueue.h>
+#include <EEPROM.h>
 
 #include <servo/servocontroller.h>
 #include <servo/servomovement.h>
@@ -48,15 +49,41 @@ void ServoController::loop() {
     }
 }
 
-void ServoController::updateCalibration(byte refAngle) {
-    // TODO
+void ServoController::updateCalibration(bool reversed, byte zeroAngle) {
+    this->reversed = reversed;
+    this->zeroAngle = zeroAngle;
+    EEPROM.writeBool(getReversedEEPROMAddress(), reversed);
+    EEPROM.writeByte(getZeroAngleEEPROMAddress(), zeroAngle);
+}
+
+std::tuple<bool, byte> ServoController::getCalibration() {
+    return std::make_tuple(reversed, zeroAngle);
+}
+
+void ServoController::resetCalibration() {
+    byte EEPROM_address = servo * 2;
+    EEPROM.writeBool(getReversedEEPROMAddress(), false);
+    EEPROM.writeByte(getZeroAngleEEPROMAddress(), 0);
 }
 
 void ServoController::updateCalibrationFromStoredData() {
-    // TODO
+    reversed = EEPROM.readBool(getReversedEEPROMAddress());
+    zeroAngle = EEPROM.readByte(getZeroAngleEEPROMAddress());
 }
 
 byte ServoController::getCorrectedAngleFor(byte angle) {
-    // TODO: Fix this after calibration
-    return angle;
+    int correctedAngle;
+    if (reversed) {
+        correctedAngle = zeroAngle - angle;
+    } else {
+        correctedAngle = zeroAngle + angle;
+    }
+    return correctedAngle;
+}
+
+byte ServoController::getReversedEEPROMAddress() {
+    return servo * 2;
+}
+byte ServoController::getZeroAngleEEPROMAddress() {
+    return getReversedEEPROMAddress() + 1;
 }

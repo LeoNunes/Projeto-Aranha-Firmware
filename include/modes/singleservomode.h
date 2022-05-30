@@ -12,7 +12,6 @@ struct SingleServoMode : Mode, SerialCommandInterceptor {
         void terminateMode() override;
         void loop() override;
         bool intercept(String command) override;
-    
     private:
         byte interceptorId;
         bool servoSelected;

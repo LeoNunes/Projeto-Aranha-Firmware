@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
+#include <modes/singleservomode.h>
 #include <serialcommands/serialcommandmanager.h>
 #include <serialcommands/serialcommandinterceptor.h>
-#include <modes/singleservomode.h>
 #include <servo/servo.h>
 
 void SingleServoMode::initiateMode() {

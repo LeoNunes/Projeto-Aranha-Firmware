@@ -1,14 +1,21 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
+#include <EEPROM.h>
 
 #include <serialcommands/serialcommandmanager.h>
 #include <serialcommands/baseserialcommandinterceptor.h>
 #include <modes/modes.h>
 #include <servo/servocontrollers.h>
+#include <servo/servo.h>
 
 void setup() {
     Serial.begin(115200);
+
+    // Numbers of byte to be persisted in EEPROM:
+    // - Two bytes for each servo holding the calibration data (reversed and angle)
+    byte EEPROM_CalibrationSize = SERVO_COUNT * 2;
+    EEPROM.begin(EEPROM_CalibrationSize);
 
     initializeServoControllers();
 
