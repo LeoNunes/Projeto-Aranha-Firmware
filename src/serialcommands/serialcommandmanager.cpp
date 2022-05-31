@@ -20,7 +20,6 @@ byte SerialCommandManager::addCommandInterceptor(SerialCommandInterceptor& inter
 }
 
 void SerialCommandManager::removeCommandInterceptor(byte interceptorId) {
-    Serial.println("Chamado remove");
     for (int i = interceptorId; i < nextInterceptorId; i++) {
         interceptors[i] = interceptors[i+1];
     }
@@ -29,12 +28,18 @@ void SerialCommandManager::removeCommandInterceptor(byte interceptorId) {
 
 void SerialCommandManager::run() {
     String command = readSerialCommand();
+    bool intercepted = false;
     if (command != "") {
         command.toUpperCase();
         for (int i = 0; i < nextInterceptorId; i ++) {
             if (interceptors[i]->intercept(command)) {
+                intercepted = true;
                 break;
             }
+        }
+        if (!intercepted) {
+            Serial.print("Command unkwown: ");
+            Serial.println(command);
         }
     }
 }

@@ -20,17 +20,23 @@ void wakeUp() {
         LinearMovement* m1_1 = new LinearMovement(0, 70, 2000);
         SERVO_CONTROLLERS[3*i+1]->addMovementToQueue(m1_1);
 
-        InstantMovement* m2_0 = new InstantMovement(0, 7000);
+        InstantMovement* m2_0 = new InstantMovement(145, 7000);
         SERVO_CONTROLLERS[3*i+2]->addMovementToQueue(m2_0);
-        LinearMovement* m2_1 = new LinearMovement(0, 70, 1000);
+        LinearMovement* m2_1 = new LinearMovement(145, 110, 1000);
         SERVO_CONTROLLERS[3*i+2]->addMovementToQueue(m2_1);
     }
 }
 
 void sleep() {
-    for (int i = 0; i < SERVO_COUNT; i++) {
-        InstantMovement* m = new InstantMovement(0, 1000);
-        SERVO_CONTROLLERS[i]->addMovementToQueue(m);
+    for (int i = 0; i < 4; i++) {
+        InstantMovement* m0_0 = new InstantMovement(0, 1000);
+        SERVO_CONTROLLERS[3*i+0]->addMovementToQueue(m0_0);
+
+        InstantMovement* m1_0 = new InstantMovement(0, 1000);
+        SERVO_CONTROLLERS[3*i+1]->addMovementToQueue(m1_0);
+
+        InstantMovement* m2_0 = new InstantMovement(145, 1000);
+        SERVO_CONTROLLERS[3*i+2]->addMovementToQueue(m2_0);
     }
 }
 
@@ -39,8 +45,8 @@ void MainMode::initiateMode() {
 
     #ifdef LEO_ENV
 
-    // wakeUp();
-    sleep();
+    wakeUp();
+    // sleep();
 
     #endif
 }

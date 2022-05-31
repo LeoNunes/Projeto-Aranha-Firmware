@@ -49,40 +49,35 @@ void ServoController::loop() {
     }
 }
 
-void ServoController::updateCalibration(bool reversed, byte zeroAngle) {
-    this->reversed = reversed;
+void ServoController::updateCalibration(byte zeroAngle, byte ninetyAngle) {
     this->zeroAngle = zeroAngle;
-    EEPROM.writeBool(getReversedEEPROMAddress(), reversed);
+    this->ninetyAngle = ninetyAngle;
     EEPROM.writeByte(getZeroAngleEEPROMAddress(), zeroAngle);
+    EEPROM.writeByte(getNinetyAngleEEPROMAddress(), ninetyAngle);
     EEPROM.commit();
 }
 
-std::tuple<bool, byte> ServoController::getCalibration() {
-    return std::make_tuple(reversed, zeroAngle);
+std::tuple<byte, byte> ServoController::getCalibration() {
+    return std::make_tuple(zeroAngle, ninetyAngle);
 }
 
 void ServoController::resetCalibration() {
-    updateCalibration(false, 0);
+    updateCalibration(0, 90);
 }
 
 void ServoController::updateCalibrationFromStoredData() {
-    reversed = EEPROM.readBool(getReversedEEPROMAddress());
     zeroAngle = EEPROM.readByte(getZeroAngleEEPROMAddress());
+    ninetyAngle = EEPROM.readByte(getNinetyAngleEEPROMAddress());
 }
 
 byte ServoController::getCorrectedAngleFor(byte angle) {
-    int correctedAngle;
-    if (reversed) {
-        correctedAngle = zeroAngle - angle;
-    } else {
-        correctedAngle = zeroAngle + angle;
-    }
-    return correctedAngle;
+    float coefficient = ((int)ninetyAngle - (int)zeroAngle)/90.0F;
+    return zeroAngle + (byte)(coefficient*angle);
 }
 
-byte ServoController::getReversedEEPROMAddress() {
+byte ServoController::getZeroAngleEEPROMAddress() {
     return servo * 2;
 }
-byte ServoController::getZeroAngleEEPROMAddress() {
-    return getReversedEEPROMAddress() + 1;
+byte ServoController::getNinetyAngleEEPROMAddress() {
+    return getZeroAngleEEPROMAddress() + 1;
 }

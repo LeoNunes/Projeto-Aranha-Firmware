@@ -4,6 +4,7 @@
 #include <serialcommands/serialcommandmanager.h>
 #include <serialcommands/serialcommandinterceptor.h>
 #include <servo/servo.h>
+#include <util/stringutil.h>
 
 void SingleServoMode::initiateMode() {
     Serial.println("--- Initiating Single Servo Mode ---");
@@ -24,6 +25,9 @@ void SingleServoMode::loop() {
 }
 
 bool SingleServoMode::intercept(String command) {
+    if (!isInt(command)) {
+        return false;
+    }
     if (!servoSelected) {
         int servoNumber = command.toInt();
         if (servoNumber >= SERVO_COUNT) {

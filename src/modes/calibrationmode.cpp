@@ -4,24 +4,26 @@
 #include <serialcommands/serialcommandmanager.h>
 #include <servo/servo.h>
 #include <servo/servocontrollers.h>
+#include <util/stringutil.h>
 
 void CalibrationMode::initiateMode() {
     Serial.println("--- Initiating Calibration Mode ---");
+    Serial.println("You should use the SingleServoMode to get the correct values for 0 and 90 degrees for each servo before using this mode.");
     interceptorId = COMMAND_MANAGER.addCommandInterceptor(*this);
     restartMode();
 }
 
 void CalibrationMode::restartMode() {
     servoSelected = false;
-    angleSelected = false;
-    selectedAngle = 0;
+    zeroAngleSelected = false;
+    zeroAngle = 0;
+    ninetyAngleSelected = false;
+    ninetyAngle = 0;
 
-    Serial.println("Commands:");
-    Serial.print(" - A number between 0 and ");
+    Serial.print("Please enter a number between 0 and ");
     Serial.print(SERVO_COUNT - 1);
-    Serial.println(" to select the servo for calibration");
-
-    Serial.println(" - RESET to reset calibration data for all servos");
+    Serial.println(" to select the servo for calibration.");
+    Serial.println("Use READ to get all calibration data or use RESET to reset calibration data for all servos");
 }
 
 void CalibrationMode::terminateMode() {
@@ -35,14 +37,104 @@ void CalibrationMode::loop() {
 
 bool CalibrationMode::intercept(String command) {
     if (!servoSelected) {
-        return interceptForServoNotSelected(command);
-    } else {
-        if (!angleSelected) {
-            return interceptForServoSelectedAndAngleNotSelected(command);
-        }
-        else {
-            return interceptForServoAndAngleSelected(command);
-        }
+        return interceptForGettingServo(command);
+    }
+    if (!zeroAngleSelected) {
+        return interceptForGettingZeroAngle(command);
+    }
+    if (!ninetyAngleSelected) {
+        return interceptForGettingNinetyAngle(command);
+    }
+    return interceptForCommit(command);
+}
+
+bool CalibrationMode::interceptForGettingServo(String command) {
+    if (command == "READ") {
+        readAllCalibration();
+        return true;
+    }
+    if (command == "RESET") {
+        resetAllCalibration();
+        return true;
+    }
+    if (!isInt(command)) {
+        return false;
+    }
+    int servoNumber = command.toInt();
+    if (servoNumber >= SERVO_COUNT) {
+        Serial.print("[ERROR] ");
+        Serial.print(servoNumber);
+        Serial.println(" is not a valid servo.");
+        return true;
+    }
+    servo = ALL_SERVOS[servoNumber];
+    servoSelected = true;
+    Serial.print("Servo selected: ");
+    Serial.println(servo);
+    Serial.println("Enter the value for the zero degree angle (the raw servo position where it is in the reference zero degree).");
+    return true;
+}
+
+bool CalibrationMode::interceptForGettingZeroAngle(String command) {
+    if (!isInt(command)) {
+        return false;
+    }
+    int angle = command.toInt();
+    if (angle < 0 || angle > 180) {
+        Serial.print("[ERROR] ");
+        Serial.print(angle);
+        Serial.println(" is not a valid angle.");
+        return true;
+    }
+    zeroAngle = angle;
+    zeroAngleSelected = true;
+    Serial.print("Zero angle selected: ");
+    Serial.println(zeroAngle);
+    Serial.println("Enter the value for the ninety degrees angle (the raw servo position where it is in the reference ninety degrees).");
+    return true;
+}
+
+bool CalibrationMode::interceptForGettingNinetyAngle(String command) {
+    if (!isInt(command)) {
+        return false;
+    }
+    int angle = command.toInt();
+    if (angle < 0 || angle > 180) {
+        Serial.print("[ERROR] ");
+        Serial.print(angle);
+        Serial.println(" is not a valid angle.");
+        return true;
+    }
+    ninetyAngle = angle;
+    ninetyAngleSelected = true;
+    Serial.print("Ninety degrees angle selected: ");
+    Serial.println(ninetyAngle);
+    Serial.println("Enter COMMIT to save the data.");
+    return true;
+}
+
+bool CalibrationMode::interceptForCommit(String command) {
+    if (command == "COMMIT") {
+        SERVO_CONTROLLERS[servo]->updateCalibration(zeroAngle, ninetyAngle);
+        Serial.println("Calibration stored successfully. Restarting calibration mode.");
+        restartMode();
+        return true;
+    }
+
+    return false;
+}
+
+void CalibrationMode::readAllCalibration() {
+    Serial.println("Reading calibration data for all servos.");
+    for (int i = 0; i < SERVO_COUNT; i++) {
+        auto [zero, ninety] = SERVO_CONTROLLERS[i]->getCalibration();
+        Serial.print("Servo: ");
+        Serial.print(i);
+        Serial.print(". Zero degree: ");
+        Serial.print(zero);
+        Serial.print(". Ninety degree: ");
+        Serial.print(ninety);
+        Serial.println(".");
     }
 }
 
@@ -51,61 +143,6 @@ void CalibrationMode::resetAllCalibration() {
     for (int i = 0; i < SERVO_COUNT; i++) {
         SERVO_CONTROLLERS[i]->resetCalibration();
     }
-    Serial.println("Calibration reseted for all Servos.");
+    Serial.println("Calibration data reseted for all Servos.");
     Serial.println("You can now select a servo number to calibrate it.");
-}
-
-bool CalibrationMode::interceptForServoNotSelected(String command) {
-    if (command == "RESET") {
-        resetAllCalibration();
-        return true;
-    }
-    int servoNumber = command.toInt();
-    if (servoNumber >= SERVO_COUNT) {
-        Serial.print("[ERROR] ");
-        Serial.print(servoNumber);
-        Serial.println(" is not a valid servo. Try a different one.");
-        return true;
-    }
-    selectedServo = ALL_SERVOS[servoNumber];
-    servoSelected = true;
-    Serial.print("Servo selected: ");
-    Serial.println(selectedServo);
-    Serial.println("You can now send values for the angle to move the servo. Adjust it so it is in the correct position");
-    Serial.println("Once you get to the reference position, send SELECT to select the value as the reference value.");
-    return true;
-}
-
-bool CalibrationMode::interceptForServoSelectedAndAngleNotSelected(String command) {
-    if (command == "SELECT") {
-        Serial.println("Angle selected. Now enter 1 if servo was reversed. Send 0 otherwise");
-        angleSelected = true;
-        return true;
-    }
-
-    int angle = command.toInt();
-    if (angle < 0 || angle > 180) {
-        Serial.print("[ERROR] ");
-        Serial.print(angle);
-        Serial.println(" is not a valid angle. Try a different one.");
-        return true;
-    }
-    selectedAngle = angle;
-    Serial.print("Sending servo ");
-    Serial.print(selectedServo);
-    Serial.print(" to ");
-    Serial.print(angle);
-    Serial.println(" degrees");
-    moveServo(selectedServo, angle);
-    return true;
-}
-
-bool CalibrationMode::interceptForServoAndAngleSelected(String command) {
-    bool reversed = (bool)command.toInt();
-    SERVO_CONTROLLERS[selectedServo]->updateCalibration(reversed, selectedAngle);
-
-    Serial.println("Calibration stored successfully. Restarting calibration mode.");
-
-    restartMode();
-    return true;
 }

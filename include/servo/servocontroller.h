@@ -14,16 +14,16 @@ struct ServoController {
         ~ServoController();
         void addMovementToQueue(ServoMovement* movement);
         void loop();
-        void updateCalibration(bool reversed, byte zeroAngle);
-        std::tuple<bool, byte> getCalibration();
+        void updateCalibration(byte zeroAngle, byte ninetyAngle);
+        std::tuple<byte, byte> getCalibration();
         void resetCalibration();
     private:
         Servo servo;
         cppQueue* movementQueue;
-        bool reversed;
         byte zeroAngle;
+        byte ninetyAngle;
         byte getCorrectedAngleFor(byte angle);
         void updateCalibrationFromStoredData();
-        byte getReversedEEPROMAddress();
         byte getZeroAngleEEPROMAddress();
+        byte getNinetyAngleEEPROMAddress();
 };

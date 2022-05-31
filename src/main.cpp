@@ -13,7 +13,7 @@ void setup() {
     Serial.begin(115200);
 
     // Numbers of byte to be persisted in EEPROM:
-    // - Two bytes for each servo holding the calibration data (reversed and angle)
+    // - Two bytes for each servo holding the calibration data (0 and 90 degree angle values)
     byte EEPROM_CalibrationSize = SERVO_COUNT * 2;
     EEPROM.begin(EEPROM_CalibrationSize);
 

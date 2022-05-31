@@ -15,12 +15,16 @@ struct CalibrationMode : Mode, SerialCommandInterceptor {
     private:
         byte interceptorId;
         bool servoSelected;
-        Servo selectedServo;
-        bool angleSelected;
-        byte selectedAngle;
-        void resetAllCalibration();
-        bool interceptForServoNotSelected(String command);
-        bool interceptForServoSelectedAndAngleNotSelected(String command);
-        bool interceptForServoAndAngleSelected(String command);
+        Servo servo;
+        bool zeroAngleSelected;
+        byte zeroAngle;
+        bool ninetyAngleSelected;
+        byte ninetyAngle;
         void restartMode();
+        bool interceptForGettingServo(String command);
+        bool interceptForGettingZeroAngle(String command);
+        bool interceptForGettingNinetyAngle(String command);
+        bool interceptForCommit(String command);
+        void readAllCalibration();
+        void resetAllCalibration();
 };

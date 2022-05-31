@@ -18,8 +18,6 @@ String readSerialCommand()
             serialCommandValue[serialCommandPosition] = '\0';
             serialCommandPosition = 0;
             String command(serialCommandValue);
-            Serial.print("Command received: ");
-            Serial.println(command);
             return command;
         }
         else
