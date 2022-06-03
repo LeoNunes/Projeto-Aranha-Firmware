@@ -72,7 +72,7 @@ void ServoController::updateCalibrationFromStoredData() {
 
 byte ServoController::getCorrectedAngleFor(byte angle) {
     float coefficient = ((int)ninetyAngle - (int)zeroAngle)/90.0F;
-    return zeroAngle + (byte)(coefficient*angle);
+    return (byte)((int)zeroAngle + coefficient*(float)angle);
 }
 
 byte ServoController::getZeroAngleEEPROMAddress() {
@@ -80,4 +80,8 @@ byte ServoController::getZeroAngleEEPROMAddress() {
 }
 byte ServoController::getNinetyAngleEEPROMAddress() {
     return getZeroAngleEEPROMAddress() + 1;
+}
+
+byte ServoController::queueSize() {
+    return movementQueue->getCount();
 }

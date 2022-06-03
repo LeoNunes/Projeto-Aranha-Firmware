@@ -16,5 +16,9 @@ bool BaseSerialCommandInterceptor::intercept(String command) {
         MODE_MANAGER.setMode(CALIBRATION_MODE);
         return true;
     }
+    if (command == "BEH") {
+        MODE_MANAGER.setMode(BEHAVIOR_MODE);
+        return true;
+    }
     return false;
 }

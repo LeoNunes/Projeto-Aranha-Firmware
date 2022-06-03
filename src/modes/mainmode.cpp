@@ -42,6 +42,10 @@ void sleep() {
 
 void MainMode::initiateMode() {
     Serial.println("--- Initiating Main Mode ---");
+    Serial.println("- Type SSM to enter Single Servo Mode -");
+    Serial.println("- Type CAL to enter Calibration Mode -");
+    Serial.println("- Type BEH to enter Behavior Mode -");
+    Serial.println("- Type MM or EXT or EXIT to return to Main Mode -");
 
     #ifdef LEO_ENV
 

@@ -17,6 +17,7 @@ struct ServoController {
         void updateCalibration(byte zeroAngle, byte ninetyAngle);
         std::tuple<byte, byte> getCalibration();
         void resetCalibration();
+        byte queueSize();
     private:
         Servo servo;
         cppQueue* movementQueue;
