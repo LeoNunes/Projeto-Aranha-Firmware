@@ -1,17 +1,10 @@
 #include <Arduino.h>
 
-#include <serialcommands/serialcommand.h>
+#include <commands/serialcommandprovider.h>
 
-const int COMMAND_MAX_SIZE = 20;
-
-
-char serialCommandValue[COMMAND_MAX_SIZE];
-byte serialCommandPosition = 0;
-
-String readSerialCommand()
+String SerialCommandProvider::getCommand()
 {
-    if (Serial.available() > 0)
-    {
+    if (Serial.available() > 0) {
         char nextChar = Serial.read();
         if (nextChar == '\n')
         {

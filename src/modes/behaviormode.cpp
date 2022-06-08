@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include <modes/behaviormode.h>
-#include <serialcommands/serialcommandmanager.h>
+#include <commands/commandmanager.h>
 #include <servo/servocontrollers.h>
 #include <servo/instantmovement.h>
 #include <servo/linearmovement.h>

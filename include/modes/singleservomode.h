@@ -4,9 +4,9 @@
 
 #include <modes/mode.h>
 #include <servo/servo.h>
-#include <serialcommands/serialcommandinterceptor.h>
+#include <commands/commandinterceptor.h>
 
-struct SingleServoMode : Mode, SerialCommandInterceptor {
+struct SingleServoMode : Mode, CommandInterceptor {
     public:
         void initiateMode() override;
         void terminateMode() override;

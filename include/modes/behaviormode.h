@@ -1,9 +1,9 @@
 #pragma once
 
 #include <modes/mode.h>
-#include <serialcommands/serialcommandinterceptor.h>
+#include <commands/commandinterceptor.h>
 
-struct BehaviorMode : Mode, SerialCommandInterceptor {
+struct BehaviorMode : Mode, CommandInterceptor {
     public:
         void initiateMode() override;
         void terminateMode() override;

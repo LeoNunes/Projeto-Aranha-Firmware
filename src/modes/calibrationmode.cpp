@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include <modes/calibrationmode.h>
-#include <serialcommands/serialcommandmanager.h>
+#include <commands/commandmanager.h>
 #include <servo/servo.h>
 #include <servo/servocontrollers.h>
 #include <util/stringutil.h>

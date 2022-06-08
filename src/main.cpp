@@ -3,8 +3,9 @@
 #include <Adafruit_PWMServoDriver.h>
 #include <EEPROM.h>
 
-#include <serialcommands/serialcommandmanager.h>
-#include <serialcommands/baseserialcommandinterceptor.h>
+#include <commands/commandmanager.h>
+#include <commands/serialcommandprovider.h>
+#include <commands/basecommandinterceptor.h>
 #include <modes/modes.h>
 #include <servo/servocontrollers.h>
 #include <servo/servo.h>
@@ -23,6 +24,7 @@ void setup() {
     delay(50);
     
     MODE_MANAGER.setMode(MAIN_MODE);
+    COMMAND_MANAGER.addCommandProvider(SERIAL_COMMAND_PROVIDER);
     COMMAND_MANAGER.addCommandInterceptor(BASE_SERIAL_COMMAND_INTERCEPTOR);
 }
 

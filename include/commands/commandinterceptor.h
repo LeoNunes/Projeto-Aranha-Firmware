@@ -2,6 +2,6 @@
 
 #include <Arduino.h>
 
-struct SerialCommandInterceptor {
+struct CommandInterceptor {
     virtual bool intercept(String command) = 0;
 };

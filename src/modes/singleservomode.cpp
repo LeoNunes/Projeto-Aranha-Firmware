@@ -1,8 +1,8 @@
 #include <Arduino.h>
 
 #include <modes/singleservomode.h>
-#include <serialcommands/serialcommandmanager.h>
-#include <serialcommands/serialcommandinterceptor.h>
+#include <commands/commandmanager.h>
+#include <commands/commandinterceptor.h>
 #include <servo/servo.h>
 #include <util/stringutil.h>
 
