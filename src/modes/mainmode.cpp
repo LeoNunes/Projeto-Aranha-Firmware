@@ -49,7 +49,7 @@ void MainMode::initiateMode() {
 
     #ifdef LEO_ENV
 
-    wakeUp();
+    // wakeUp();
     // sleep();
 
     #endif

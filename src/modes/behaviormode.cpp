@@ -53,12 +53,12 @@ void BehaviorMode::executeWake() {
 
         InstantMovement* m1_0 = new InstantMovement(0, 2000);
         SERVO_CONTROLLERS[3*i+1]->addMovementToQueue(m1_0);
-        LinearMovement* m1_1 = new LinearMovement(0, 70, 2000);
+        LinearMovement* m1_1 = new LinearMovement(0, 55, 2000);
         SERVO_CONTROLLERS[3*i+1]->addMovementToQueue(m1_1);
 
-        InstantMovement* m2_0 = new InstantMovement(145, 3000);
+        InstantMovement* m2_0 = new InstantMovement(145, 2000);
         SERVO_CONTROLLERS[3*i+2]->addMovementToQueue(m2_0);
-        LinearMovement* m2_1 = new LinearMovement(145, 110, 1000);
+        LinearMovement* m2_1 = new LinearMovement(145, 120, 1000);
         SERVO_CONTROLLERS[3*i+2]->addMovementToQueue(m2_1);
     }
     Serial.println("ExecuteWake finished");
