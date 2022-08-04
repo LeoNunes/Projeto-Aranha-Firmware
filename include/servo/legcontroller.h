@@ -1,0 +1,25 @@
+#pragma once
+
+#include <Arduino.h>
+
+#include <servo/servocontroller.h>
+
+const byte SERVOS_IN_THE_LEG = 3;
+
+struct LegController {
+    public:
+        LegController(
+            ServoController* controller1,
+            ServoController* controller2,
+            ServoController* controller3
+        );
+        void WakeSequence(byte finalAngle1, byte finalAngle2, byte finalAngle3);
+        void SleepSequence();
+        void StoreSequence();
+        void Rotate(byte fromAngle, byte toAngle, long durationInMillis);
+        void Step(byte fromAngle, byte toAngle, long durationInMillis);
+        bool Moving();
+        void loop();
+    private:
+        ServoController* servoControllers[SERVOS_IN_THE_LEG];
+};

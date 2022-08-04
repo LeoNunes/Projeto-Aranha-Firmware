@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <Adafruit_PWMServoDriver.h>
 
+const byte SERVO_COUNT = 12;
+
 enum Servo : byte {
     SER0 = 0, // Servo Motor 0
     SER1 = 1, // Servo Motor 1
@@ -18,21 +20,20 @@ enum Servo : byte {
     SER11 = 11, // Servo Motor 11
 };
 
-const Servo S_FL_1 = SER0; // Front Left 1
-const Servo S_FL_2 = SER1; // Front Left 2
-const Servo S_FL_3 = SER2; // Front Left 3
-const Servo S_FR_1 = SER3; // Front Right 1
-const Servo S_FR_2 = SER4; // Front Right 2
-const Servo S_FR_3 = SER5; // Front Right 3
-const Servo S_BL_1 = SER6; // Back Left 1
-const Servo S_BL_2 = SER7; // Back Left 2
-const Servo S_BL_3 = SER8; // Back Left 3
-const Servo S_BR_1 = SER9; // Back Right 1
-const Servo S_BR_2 = SER10; // Back Right 2
-const Servo S_BR_3 = SER11; // Back Right 3
-
-const byte SERVO_COUNT = 12;
 const Servo ALL_SERVOS[] { SER0, SER1, SER2, SER3, SER4, SER5, SER6, SER7, SER8, SER9, SER10, SER11 };
+
+const byte SER_FL_1 = 0; // Servo number for Front Left 1
+const byte SER_FL_2 = 1; // Servo number for Front Left 2
+const byte SER_FL_3 = 2; // Servo number for Front Left 3
+const byte SER_FR_1 = 3; // Servo number for Front Right 1
+const byte SER_FR_2 = 4; // Servo number for Front Right 2
+const byte SER_FR_3 = 5; // Servo number for Front Right 3
+const byte SER_BL_1 = 6; // Servo number for Back Left 1
+const byte SER_BL_2 = 7; // Servo number for Back Left 2
+const byte SER_BL_3 = 8; // Servo number for Back Left 3
+const byte SER_BR_1 = 9; // Servo number for Back Right 1
+const byte SER_BR_2 = 10; // Servo number for Back Right 2
+const byte SER_BR_3 = 11; // Servo number for Back Right 3
 
 const byte SERVOS_PINS[SERVO_COUNT] = {
     0, // Servo Motor 0 on connector 0

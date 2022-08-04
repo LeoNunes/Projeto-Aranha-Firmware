@@ -6,4 +6,6 @@
 inline ServoController* SERVO_CONTROLLERS[SERVO_COUNT];
 
 void initializeServoControllers();
+
+// TODO: Remove this
 void servoControllersLoop();
