@@ -5,6 +5,7 @@
 #include <servo/servocontroller.h>
 #include <servo/servomovement.h>
 #include <servo/servo.h>
+#include <config.h>
 
 ServoController::ServoController(Servo servo) {
     this->servo = servo;

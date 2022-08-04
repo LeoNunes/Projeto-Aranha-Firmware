@@ -3,8 +3,7 @@
 #include <Arduino.h>
 
 #include <servo/servocontroller.h>
-
-const byte SERVOS_IN_THE_LEG = 3;
+#include <config.h>
 
 struct LegController {
     public:

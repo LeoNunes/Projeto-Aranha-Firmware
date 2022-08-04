@@ -1,5 +1,5 @@
 #include <servo/servocontrollers.h>
-#include <servo/servo.h>
+#include <config.h>
 
 void initializeServoControllers() {
     for (int i = 0; i < SERVO_COUNT; i++) {

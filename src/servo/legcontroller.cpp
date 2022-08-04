@@ -4,6 +4,7 @@
 #include <servo/servocontroller.h>
 #include <servo/instantmovement.h>
 #include <servo/linearmovement.h>
+#include <config.h>
 
 LegController::LegController(
         ServoController* controller1,

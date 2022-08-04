@@ -5,6 +5,7 @@
 #include <commands/commandinterceptor.h>
 #include <servo/servo.h>
 #include <util/stringutil.h>
+#include <config.h>
 
 void SingleServoMode::initiateMode() {
     Serial.println("--- Initiating Single Servo Mode ---");

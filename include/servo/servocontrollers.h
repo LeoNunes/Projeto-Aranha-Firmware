@@ -1,6 +1,6 @@
 #pragma once
 
-#include <servo/servo.h>
+#include <config.h>
 #include <servo/servocontroller.h>
 
 inline ServoController* SERVO_CONTROLLERS[SERVO_COUNT];

@@ -1,6 +1,6 @@
 #include <servo/legcontrollers.h>
 #include <servo/servocontrollers.h>
-#include <servo/servo.h>
+#include <config.h>
 
 void initializeLegControllers() {
     initializeServoControllers();

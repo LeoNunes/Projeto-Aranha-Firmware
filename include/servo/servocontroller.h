@@ -6,8 +6,6 @@
 #include <servo/servo.h>
 #include <servo/servomovement.h>
 
-const byte MAX_MOVEMENT_QUEUE_SIZE = 5;
-
 struct ServoController {
     public:
         ServoController(Servo servo);

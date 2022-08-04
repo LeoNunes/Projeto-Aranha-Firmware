@@ -10,7 +10,7 @@
 #include <commands/bluetoothcommandprovider.h>
 #include <modes/modes.h>
 #include <servo/servocontrollers.h>
-#include <servo/servo.h>
+#include <config.h>
 
 void setup() {
     Serial.begin(115200);

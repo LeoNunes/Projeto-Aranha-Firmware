@@ -2,6 +2,7 @@
 #include <Adafruit_PWMServoDriver.h>
 
 #include <servo/servo.h>
+#include <config.h>
 
 #define SERVOMIN 80  // Minimum value
 #define SERVOMAX 600 // Maximum value

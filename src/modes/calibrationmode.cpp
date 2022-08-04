@@ -2,9 +2,9 @@
 
 #include <modes/calibrationmode.h>
 #include <commands/commandmanager.h>
-#include <servo/servo.h>
 #include <servo/servocontrollers.h>
 #include <util/stringutil.h>
+#include <config.h>
 
 void CalibrationMode::initiateMode() {
     Serial.println("--- Initiating Calibration Mode ---");
