@@ -12,6 +12,10 @@ bool BaseCommandInterceptor::intercept(String command) {
         MODE_MANAGER.setMode(SINGLE_SERVO_MODE);
         return true;
     }
+    if (command == "CSSM") {
+        MODE_MANAGER.setMode(CALIBRATED_SINGLE_SERVO_MODE);
+        return true;
+    }
     if (command == "CAL") {
         MODE_MANAGER.setMode(CALIBRATION_MODE);
         return true;

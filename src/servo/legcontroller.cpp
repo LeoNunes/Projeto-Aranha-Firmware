@@ -52,13 +52,12 @@ void LegController::StoreSequence() {
     this->servoControllers[2]->addMovementToQueue(movement2);
 }
 
-void LegController::Rotate(byte fromAngle, byte toAngle, long durationInMillis) {
-    LinearMovement* movement = new LinearMovement(fromAngle, toAngle, durationInMillis);
-    this->servoControllers[0]->addMovementToQueue(movement);
+void LegController::MoveTo(byte x, byte y) {
+    // TODO
 }
 
-void LegController::Step(byte fromAngle, byte toAngle, long durationInMillis) {
-    
+void LegController::StepTo(byte x, byte y) {
+    // TODO
 }
 
 bool LegController::Moving() {

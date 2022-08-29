@@ -29,7 +29,7 @@ void setup() {
     MODE_MANAGER.setMode(MAIN_MODE);
     COMMAND_MANAGER.addCommandProvider(SERIAL_COMMAND_PROVIDER);
     COMMAND_MANAGER.addCommandProvider(BLUETOOTH_COMMAND_PROVIDER);
-    COMMAND_MANAGER.addCommandInterceptor(BASE_SERIAL_COMMAND_INTERCEPTOR);
+    COMMAND_MANAGER.addCommandInterceptor(BASE_COMMAND_INTERCEPTOR);
 }
 
 void loop() {

@@ -8,4 +8,4 @@ struct BaseCommandInterceptor : CommandInterceptor {
     bool intercept(String command) override;
 };
 
-inline BaseCommandInterceptor BASE_SERIAL_COMMAND_INTERCEPTOR = BaseCommandInterceptor();
+inline BaseCommandInterceptor BASE_COMMAND_INTERCEPTOR = BaseCommandInterceptor();

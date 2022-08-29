@@ -15,8 +15,8 @@ struct LegController {
         void WakeSequence(byte finalAngle1, byte finalAngle2, byte finalAngle3);
         void SleepSequence();
         void StoreSequence();
-        void Rotate(byte fromAngle, byte toAngle, long durationInMillis);
-        void Step(byte fromAngle, byte toAngle, long durationInMillis);
+        void MoveTo(byte x, byte y);
+        void StepTo(byte x, byte y);
         bool Moving();
         void loop();
     private:
