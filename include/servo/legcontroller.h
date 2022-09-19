@@ -15,10 +15,17 @@ struct LegController {
         void WakeSequence(byte finalAngle1, byte finalAngle2, byte finalAngle3);
         void SleepSequence();
         void StoreSequence();
-        void MoveTo(byte x, byte y);
-        void StepTo(byte x, byte y);
+        void MoveTo(float x, float y, float z, long durationInMillis = 1000);
+        void StepTo(float x, float y, float z, long durationInMillis = 1000);
         bool Moving();
         void loop();
     private:
         ServoController* servoControllers[SERVOS_IN_THE_LEG];
+        float lastX;
+        float lastY;
+        float lastZ;
+        byte lastAngle0 = 0;
+        byte lastAngle1 = 0;
+        byte lastAngle2 = 0;
+        void getAnglesForCartesian(volatile float x, volatile float y, volatile float z, volatile float &angle0, volatile float &angle1, volatile float &angle2);
 };

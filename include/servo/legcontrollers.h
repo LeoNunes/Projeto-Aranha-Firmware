@@ -10,3 +10,5 @@ inline LegController* BACK_LEFT_LEG;
 inline LegController* BACK_RIGHT_LEG;
 
 void initializeLegControllers();
+
+void legControllersLoop();

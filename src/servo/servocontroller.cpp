@@ -27,7 +27,7 @@ void ServoController::addMovementToQueue(ServoMovement* movement) {
         while (true) {
             Serial.print("Movement queue for Servo ");
             Serial.print(servo);
-            Serial.print("is full");
+            Serial.println("is full");
             delay(1000);
         }
     }

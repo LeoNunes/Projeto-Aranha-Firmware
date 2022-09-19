@@ -28,3 +28,10 @@ void initializeLegControllers() {
         SERVO_CONTROLLERS[SER_BR_3]
     );
 }
+
+void legControllersLoop() {
+    FRONT_LEFT_LEG->loop();
+    FRONT_RIGHT_LEG->loop();
+    BACK_LEFT_LEG->loop();
+    BACK_RIGHT_LEG->loop();
+}

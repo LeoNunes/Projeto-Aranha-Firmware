@@ -38,7 +38,7 @@ const byte SERVOS_PINS[SERVO_COUNT] = {
 
 // Servo controllers uses a queue to control movements.
 // This parameter defines its maximum size.
-const byte MAX_MOVEMENT_QUEUE_SIZE = 5;
+const byte MAX_MOVEMENT_QUEUE_SIZE = 100; // TODO Adjust
 
 // Dimensions of the spider
 const float LEG_SEGMENT_1_SIZE_IN_MM = 27.5;
@@ -47,3 +47,6 @@ const float LEG_SEGMENT_3_SIZE_IN_MM = 77.5;
 
 // How far the body will be from the ground
 const float DEFAULT_OPERATIONAL_BODY_HIGHT_IN_MM = 10;
+
+// How high the Z coordinate goes during a step
+const float STEP_Z_HIGHT_IN_MM = 20;
